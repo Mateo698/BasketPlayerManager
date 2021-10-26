@@ -43,88 +43,103 @@ public class AVLTree<T extends Comparable<T>> {
 		if (N == null)
 			return 0;
 
-		return height(N.left) - height(N.right);
+		return height(N.getLeft()) - height(N.getRight());
 	}
 
-	Node insert(Node node, int key) {
-
-		/* 1.  Perform the normal BST insertion */
+	public Node<T> insert(Node<T> node, T key) {
 		if (node == null)
-			return (new Node(key));
-
-		if (key < node.key)
-			node.left = insert(node.left, key);
-		else if (key > node.key)
-			node.right = insert(node.right, key);
-		else // Duplicate keys not allowed
+			return (new Node<T>(key));
+		if (key.compareTo(node.getKey())<0)
+			node.setLeft(insert(node.getLeft(), key));
+		else if (key.compareTo(node.getKey())>0)
+			node.setRight(insert(node.getRight(), key));
+		else
 			return node;
-
-		/* 2. Update height of this ancestor node */
-		node.height = 1 + max(height(node.left),
-				height(node.right));
-
-		/* 3. Get the balance factor of this ancestor
-	              node to check whether this node became
-	              unbalanced */
+		node.setHeight(1 + max(height(node.getLeft()),height(node.getRight())));
 		int balance = getBalance(node);
-
-		// If this node becomes unbalanced, then there
-		// are 4 cases Left Left Case
-		if (balance > 1 && key < node.left.key)
+		if (balance > 1 && key.compareTo(node.getLeft().getKey())<0)
 			return rightRotate(node);
-
-		// Right Right Case
-		if (balance < -1 && key > node.right.key)
+		if (balance < -1 && key.compareTo(node.getRight().getKey())>0)
 			return leftRotate(node);
-
-		// Left Right Case
-		if (balance > 1 && key > node.left.key) {
-			node.left = leftRotate(node.left);
+		if (balance > 1 && key.compareTo(node.getRight().getKey())>0) {
+			node.setLeft(leftRotate(node.getLeft()));
 			return rightRotate(node);
 		}
-
-		// Right Left Case
-		if (balance < -1 && key < node.right.key) {
-			node.right = rightRotate(node.right);
+		if (balance < -1 && key.compareTo(node.getLeft().getKey())<0) {
+			node.setRight(rightRotate(node.getRight()));
 			return leftRotate(node);
 		}
-
-		/* return the (unchanged) node pointer */
 		return node;
 	}
 
-	// A utility function to print preorder traversal
-	// of the tree.
-	// The function also prints height of every node
-	void preOrder(Node node) {
+
+	public void preOrder(Node<T> node) {
 		if (node != null) {
-			System.out.print(node.key + " ");
-			preOrder(node.left);
-			preOrder(node.right);
+			System.out.print(node.getKey() + " ");
+			preOrder(node.getLeft());
+			preOrder(node.getRight());
 		}
 	}
 
-	public static void main(String[] args) {
-		AVLTree tree = new AVLTree();
+	public Node<T> minValueNode(Node<T> node)
+	{
+		Node<T> current = node;
+		while (current.getLeft() != null)
+			current = current.getLeft();
 
-		/* Constructing tree given in the above figure */
-		tree.root = tree.insert(tree.root, 10);
-		tree.root = tree.insert(tree.root, 20);
-		tree.root = tree.insert(tree.root, 30);
-		tree.root = tree.insert(tree.root, 40);
-		tree.root = tree.insert(tree.root, 50);
-		tree.root = tree.insert(tree.root, 25);
+		return current;
+	}
 
-		/* The constructed AVL Tree would be
-	             30
-	            /  \
-	          20   40
-	         /  \     \
-	        10  25    50
-		 */
-		System.out.println("Preorder traversal" +
-				" of constructed tree is : ");
-		tree.preOrder(tree.root);
+	@SuppressWarnings("unused")
+	public Node<T> deleteNode(Node<T> root, T key)
+	{
+		if (root == null)
+			return root;
+		if (key.compareTo(root.getKey())<0)
+			root.setLeft(deleteNode(root.getLeft(), key));
+		else if (key.compareTo(root.getKey())>0)
+			root.setRight(deleteNode(root.getRight(), key));
+		else{
+			if ((root.getLeft() == null) || (root.getRight() == null)){
+				Node<T> temp = null;
+				if (temp == root.getLeft())
+					temp = root.getRight();
+				else
+					temp = root.getLeft();
+				if (temp == null){
+					temp = root;
+					root = null;
+				}
+				root = temp;
+			}
+			else
+			{	
+				Node<T> temp = minValueNode(root.getRight());
+				root.setKey(temp.getKey());
+				root.setRight(deleteNode(root.getRight(), temp.getKey()));
+			}
+		}
+		if (root == null) {
+			return root;
+		}
+		
+		root.setHeight(max(height(root.getLeft()), height(root.getRight())) + 1);
+		int balance = getBalance(root);
+		if (balance > 1 && getBalance(root.getLeft()) >= 0)
+			return rightRotate(root);
+		if (balance > 1 && getBalance(root.getLeft()) < 0)
+		{
+			root.setLeft(leftRotate(root.getLeft()));
+			return rightRotate(root);
+		}
+		if (balance < -1 && getBalance(root.getRight()) <= 0)
+			return leftRotate(root);
+		if (balance < -1 && getBalance(root.getRight()) > 0)
+		{
+			root.setRight(rightRotate(root.getRight()));
+			return leftRotate(root);
+		}
+		return root;
 	}
 
 	public Node<T> getRoot() {
