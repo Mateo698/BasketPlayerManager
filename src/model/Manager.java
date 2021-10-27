@@ -137,7 +137,9 @@ public class Manager {
 	}
 	
 	
-	public void removePlayer() {
-		
+	public boolean removePlayer(Player remove) {
+		mainData.deleteNode(mainData.getRoot(), remove);
+		fastAccess.get(0).deleteNode(fastAccess.get(0).getRoot(), new StatisticData(0, 0));
+		return false;
 	}
 }
