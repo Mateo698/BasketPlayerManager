@@ -20,14 +20,14 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("loading.fxml"));
 		fxmlloader.setController(gui);
 		Parent root = fxmlloader.load();
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		primaryStage.setResizable(false);
-    	//gui.loadImage();
+		//primaryStage.setResizable(false);
+    	
 		
 	}
 }
