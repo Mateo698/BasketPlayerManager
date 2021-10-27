@@ -1,6 +1,7 @@
 package model;
 
-public class Player {
+public class Player implements Comparable<Player>{
+	private int id;
 	private String name;
 	private int age;
 	private String team;
@@ -10,7 +11,8 @@ public class Player {
 	private double stealPerMatch;
 	private double blockPerMatch;
 	
-	public Player(String name, int age,String team, double points, double rebound, double assist, double steal, double block) {
+	public Player(int id, String name, int age,String team, double points, double rebound, double assist, double steal, double block) {
+		this.setId(id);
 		this.setName(name);
 		this.setAge(age);
 		this.setTeam(team);
@@ -19,6 +21,10 @@ public class Player {
 		setAssistPerMatch(assist);
 		setStealPerMatch(steal);
 		setBlockPerMatch(block);
+	}
+	
+	public Player(int index) {
+		this.setId(index);
 	}
 
 	public double getPointsPerMatch() {
@@ -83,5 +89,24 @@ public class Player {
 
 	public void setTeam(String team) {
 		this.team = team;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public int compareTo(Player o) {
+		if(this.id<o.getId()) {
+			return -1;
+		}else if(this.id>o.getId()){
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 }
