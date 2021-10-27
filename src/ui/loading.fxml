@@ -20,7 +20,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Welcome to Minesweeper Game" textFill="#304ec6" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+      <Label text="Loading Players" textFill="#304ec6" GridPane.columnSpan="2" GridPane.halignment="CENTER">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
