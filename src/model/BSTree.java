@@ -1,10 +1,18 @@
 package model;
 
 public class BSTree<T extends Comparable<T>> {
-	Node<T> root;
+	private Node<T> root;
 
 	BSTree()    {
 		root = null;
+	}
+
+	public Node<T> getRoot() {
+		return root;
+	}
+
+	public void setRoot(Node<T> root) {
+		this.root = root;
 	}
 
 	public void insert(T key){
@@ -23,9 +31,6 @@ public class BSTree<T extends Comparable<T>> {
 		return root;
 	}
 
-	public void inorder(){
-		inorderRec(root);
-	}
 	
 	public Node<T> search(Node<T> root, T key){
 	    if (root==null || root.getKey().compareTo(key)==0)
@@ -35,13 +40,7 @@ public class BSTree<T extends Comparable<T>> {
 	    return search(root.getLeft(), key);
 	}
 
-	public void inorderRec(Node<T> root){
-		if (root != null) {
-			inorderRec(root.getLeft());
-			System.out.println(root.getKey());
-			inorderRec(root.getRight());
-		}
-	}
+
 	
 	public Node<T> deleteNode(Node<T> root, T k){
 	    if (root == null)
