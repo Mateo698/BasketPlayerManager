@@ -81,9 +81,11 @@ public class Manager {
 	}
 	
 	private Player id(Node<Player> node,int id) {
-		if(node.getKey().getId() == id || node==null) {
+		if(node == null) {
+			return null;
+		}else if(node.getKey().getId() == id) {
 			return node.getKey();
-		}else {
+		}else{
 			Player left = id(node.getLeft(),id);
 			Player right = id(node.getRight(),id);
 			if(left != null) {
@@ -104,7 +106,34 @@ public class Manager {
 	}
 	
 	public Player searchTeam(int selected, String team) {
-		return null;
+		Node<Player> root = mainData.getRoot();
+		if(root.getKey().getTeam().equals(team)) {
+			return root.getKey();
+		}else {
+			Player left = team(root.getLeft(),team);
+			Player right = team(root.getRight(),team);
+			if(left != null) {
+				return left;
+			}else {
+				return right;
+			}
+		}
+	}
+	
+	private Player team(Node<Player> node,String team) {
+		if(node == null) {
+			return null;
+		}else if(node.getKey().getTeam().equals(team)) {
+			return node.getKey();
+		}else {
+			Player left = team(node.getLeft(),team);
+			Player right = team(node.getRight(),team);
+			if(left != null) {
+				return left;
+			}else {
+				return right;
+			}
+		}
 	}
 	
 	

@@ -99,8 +99,7 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	@SuppressWarnings("unused")
-	public Node<T> deleteNode(Node<T> root, T key)
-	{
+	public Node<T> deleteNode(Node<T> root, T key){
 		if (root == null)
 			return root;
 		if (key.compareTo(root.getKey())<0)
