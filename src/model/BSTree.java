@@ -32,9 +32,13 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	
-	public Node<T> search(Node<T> root, T key){
-	    if (root==null || root.getKey().compareTo(key)==0)
-	        return root;
+	public T search(Node<T> root, T key){
+	    if (root==null) {
+	    	   return null;
+	    }else if(root.getKey().compareTo(key)==0){
+	    	return root.getKey();
+	    }
+	     
 	    if (root.getKey().compareTo(key)<0)
 	       return search(root.getRight(), key);
 	    return search(root.getLeft(), key);

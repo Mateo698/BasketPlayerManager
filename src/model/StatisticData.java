@@ -32,10 +32,11 @@ public class StatisticData implements Comparable<StatisticData>{
 		}else if(data>o.getData()) {
 			return 1;
 		}else if(o.getData() == data && o.getIndex() == index){
-			return 10;
-		}else {
-		}
 			return 0;
+		}else {
+			return 1;
+		}
+			
 		}
 	
 }

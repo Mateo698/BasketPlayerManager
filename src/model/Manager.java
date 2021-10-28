@@ -69,7 +69,7 @@ public class Manager {
 	
 	private Player search(int index) {
 		Player aux = new Player(index);
-		Player found = (mainData.search(mainData.getRoot(), aux)).getKey();
+		Player found = (mainData.search(mainData.getRoot(), aux));
 		return found;
 	}
 	
@@ -111,15 +111,18 @@ public class Manager {
 			if(left != null) {
 				return left;
 			}
+			
 			Player right = name(root.getRight(),name);
 			return right;
 		}
 	}
 	
 	private Player name(Node<Player> node, String name) {
-		if(node.getKey().getName().equalsIgnoreCase(name)) {
-			return node.getKey();
-		}else {
+		if(node == null){
+			return null;
+		}else if(node.getKey().getName().equals(name)) {
+				return node.getKey();
+		}else{
 			Player left = name(node.getLeft(),name);
 			if(left != null) {
 				return left;
@@ -186,6 +189,14 @@ public class Manager {
 		fastAccess.get(1).deleteNode(fastAccess.get(1).getRoot(), new StatisticData(remove.getId(), remove.getReboundPerMatch()));
 		fastAccess.get(2).deleteNode(fastAccess.get(2).getRoot(), new StatisticData(remove.getId(), remove.getAssistPerMatch()));
 		fastAccess.get(3).deleteNode(fastAccess.get(3).getRoot(), new StatisticData(remove.getId(), remove.getStealPerMatch()));
+	}
+	
+	public void editPlayer(Player oldPlayer, Player editedPlayer) {
+		fastAccess.get(0).search(fastAccess.get(0).getRoot(),new StatisticData(oldPlayer.getId(), oldPlayer.getPointsPerMatch())).setKey(new StatisticData(editedPlayer.getId(), editedPlayer.getPointsPerMatch()));
+		fastAccess.get(1).search(fastAccess.get(0).getRoot(),new StatisticData(oldPlayer.getId(), oldPlayer.getReboundPerMatch())).setKey(new StatisticData(editedPlayer.getId(), editedPlayer.getReboundPerMatch()));;
+		fastAccess.get(2).search(fastAccess.get(0).getRoot(),new StatisticData(oldPlayer.getId(), oldPlayer.getAssistPerMatch())).setKey(new StatisticData(editedPlayer.getId(), editedPlayer.getAssistPerMatch()));;
+		fastAccess.get(3).search(fastAccess.get(0).getRoot(),new StatisticData(oldPlayer.getId(), oldPlayer.getStealPerMatch())).setKey(new StatisticData(editedPlayer.getId(), editedPlayer.getStealPerMatch()));;
+		
 	}
 	
 	public void loadData() {
