@@ -28,6 +28,14 @@ public class Manager {
 		fastAccess.get(0).insert(fastAccess.get(3).getRoot(), new StatisticData(id,steal));
 	}
 	
+	public void addPlayer(Player p) {
+		mainData.insert(p);
+		fastAccess.get(0).insert(fastAccess.get(0).getRoot(), new StatisticData(p.getId(),p.getPointsPerMatch()));
+		fastAccess.get(0).insert(fastAccess.get(1).getRoot(), new StatisticData(p.getId(),p.getReboundPerMatch()));
+		fastAccess.get(0).insert(fastAccess.get(2).getRoot(), new StatisticData(p.getId(),p.getAssistPerMatch()));
+		fastAccess.get(0).insert(fastAccess.get(3).getRoot(), new StatisticData(p.getId(),p.getStealPerMatch()));
+	}
+	
 	public Player quickSearch(int selected, double data) {
 		Node<StatisticData> searched = null;
 		StatisticData aux = new StatisticData(0,data);
@@ -172,9 +180,15 @@ public class Manager {
 	}
 	
 	
-	public boolean removePlayer(Player remove) {
-		mainData.deleteNode(mainData.getRoot(), remove);
-		fastAccess.get(0).deleteNode(fastAccess.get(0).getRoot(), new StatisticData(0, 0));
-		return false;
+	public void removePlayer(Player remove) {
+		mainData.deleteKey(remove);
+		fastAccess.get(0).deleteNode(fastAccess.get(0).getRoot(), new StatisticData(remove.getId(), remove.getPointsPerMatch()));
+		fastAccess.get(1).deleteNode(fastAccess.get(1).getRoot(), new StatisticData(remove.getId(), remove.getReboundPerMatch()));
+		fastAccess.get(2).deleteNode(fastAccess.get(2).getRoot(), new StatisticData(remove.getId(), remove.getAssistPerMatch()));
+		fastAccess.get(3).deleteNode(fastAccess.get(3).getRoot(), new StatisticData(remove.getId(), remove.getStealPerMatch()));
+	}
+	
+	public void loadData() {
+		
 	}
 }

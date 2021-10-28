@@ -106,7 +106,7 @@ public class AVLTree<T extends Comparable<T>> {
 			root.setLeft(deleteNode(root.getLeft(), key));
 		else if (key.compareTo(root.getKey())>0)
 			root.setRight(deleteNode(root.getRight(), key));
-		else{
+		else if(key.compareTo(root.getKey())==10){
 			if ((root.getLeft() == null) || (root.getRight() == null)){
 				Node<T> temp = null;
 				if (temp == root.getLeft())
