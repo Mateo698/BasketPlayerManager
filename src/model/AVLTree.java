@@ -47,13 +47,17 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 	
 	public Node<T> search(Node<T> root, T key){
-	    if (root==null || root.getKey().compareTo(key)==0)
+	    if (root==null || root.getKey().compareTo(key)==1)
 	        return root;
 	    if (root.getKey().compareTo(key)<0)
 	       return search(root.getRight(), key);
 	    return search(root.getLeft(), key);
 	}
-
+	
+	public void add(T key) {
+			root = insert(root, key);
+	}
+	
 	public Node<T> insert(Node<T> node, T key) {
 		if (node == null)
 			return (new Node<T>(key));

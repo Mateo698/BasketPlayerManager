@@ -18,22 +18,26 @@ public class Manager {
 	public BSTree<Player> getMainData() {
 		return mainData;
 	}
+	
+	public ArrayList<AVLTree<StatisticData>> getFastData(){
+		return fastAccess;
+	}
 
 	public void addPlayer(int id, String name, int age,String team, double points, double rebound, double assist, double steal, double block) {
 		Player newP = new Player(id, name, age, team, points, rebound, assist, steal, block);
 		mainData.insert(newP);
-		fastAccess.get(0).insert(fastAccess.get(0).getRoot(), new StatisticData(id,points));
-		fastAccess.get(0).insert(fastAccess.get(1).getRoot(), new StatisticData(id,rebound));
-		fastAccess.get(0).insert(fastAccess.get(2).getRoot(), new StatisticData(id,assist));
-		fastAccess.get(0).insert(fastAccess.get(3).getRoot(), new StatisticData(id,steal));
+		fastAccess.get(0).add(new StatisticData(id,points));
+		fastAccess.get(1).add(new StatisticData(id,rebound));
+		fastAccess.get(2).add(new StatisticData(id,assist));
+		fastAccess.get(3).add(new StatisticData(id,steal));
 	}
 	
 	public void addPlayer(Player p) {
 		mainData.insert(p);
-		fastAccess.get(0).insert(fastAccess.get(0).getRoot(), new StatisticData(p.getId(),p.getPointsPerMatch()));
-		fastAccess.get(0).insert(fastAccess.get(1).getRoot(), new StatisticData(p.getId(),p.getReboundPerMatch()));
-		fastAccess.get(0).insert(fastAccess.get(2).getRoot(), new StatisticData(p.getId(),p.getAssistPerMatch()));
-		fastAccess.get(0).insert(fastAccess.get(3).getRoot(), new StatisticData(p.getId(),p.getStealPerMatch()));
+		fastAccess.get(0).add(new StatisticData(p.getId(),p.getPointsPerMatch()));
+		fastAccess.get(1).add(new StatisticData(p.getId(),p.getReboundPerMatch()));
+		fastAccess.get(2).add(new StatisticData(p.getId(),p.getAssistPerMatch()));
+		fastAccess.get(3).add(new StatisticData(p.getId(),p.getStealPerMatch()));
 	}
 	
 	public Player quickSearch(int selected, double data) {
@@ -45,15 +49,15 @@ public class Manager {
 			break;
 
 		case 2:
-			searched = fastAccess.get(1).search(fastAccess.get(0).getRoot(), aux);
+			searched = fastAccess.get(1).search(fastAccess.get(1).getRoot(), aux);
 			break;
 
 		case 3:
-			searched = fastAccess.get(2).search(fastAccess.get(0).getRoot(), aux);
+			searched = fastAccess.get(2).search(fastAccess.get(2).getRoot(), aux);
 			break;
 
 		case 4:
-			searched = fastAccess.get(3).search(fastAccess.get(0).getRoot(), aux);
+			searched = fastAccess.get(3).search(fastAccess.get(3).getRoot(), aux);
 			break;
 
 		default:
@@ -75,7 +79,9 @@ public class Manager {
 	
 	public Player searchId(int data) {
 		Node<Player> root = mainData.getRoot();
-		if(root.getKey().getId()==data) {
+		if(root == null) {
+			return null;
+		}else if(root.getKey().getId()==data) {
 			return root.getKey();
 		}else {
 			Player left = id(root.getLeft(),data);
@@ -104,7 +110,9 @@ public class Manager {
 	
 	public Player searchName(String name) {
 		Node<Player> root = mainData.getRoot();
-		if(root.getKey().getName()==name) {
+		if(root == null) {
+			return null;
+		}else if(root.getKey().getName()==name) {
 			return root.getKey();
 		}else {
 			Player left = name(root.getLeft(),name);
@@ -134,7 +142,9 @@ public class Manager {
 	
 	public Player searchAge(int age) {
 		Node<Player> root = mainData.getRoot();
-		if(root.getKey().getAge()==age) {
+		if(root == null) {
+			return null;
+		}else if(root.getKey().getAge()==age) {
 			return root.getKey();
 		}else {
 			Player left = age(root.getLeft(),age);
@@ -147,13 +157,25 @@ public class Manager {
 	}
 	
 	private Player age(Node<Player> node, int age) {
-		
-		return null;
+		if(node == null){
+			return null;
+		}else if(node.getKey().getAge() == age) {
+				return node.getKey();
+		}else{
+			Player left = age(node.getLeft(),age);
+			if(left != null) {
+				return left;
+			}
+			Player right = age(node.getRight(),age);
+			return right;
+		}
 	}
 	
 	public Player searchTeam(int selected, String team) {
 		Node<Player> root = mainData.getRoot();
-		if(root.getKey().getTeam().equals(team)) {
+		if(root == null) {
+			return null;
+		}else if(root.getKey().getTeam().equals(team)) {
 			return root.getKey();
 		}else {
 			Player left = team(root.getLeft(),team);

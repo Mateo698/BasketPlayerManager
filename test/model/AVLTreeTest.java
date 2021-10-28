@@ -5,10 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class AVLTreeTest {
-
+	
+	AVLTree<Integer> tree;
+	
 	@Test
 	void test() {
-		fail("Not yet implemented");
+		tree = new AVLTree<Integer>();
+		tree.add(1);
+		assertTrue(tree.getRoot() != null);
 	}
 
 }
