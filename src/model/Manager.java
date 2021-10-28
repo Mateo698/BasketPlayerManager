@@ -65,18 +65,17 @@ public class Manager {
 		return found;
 	}
 	
-	public Player searchId(int selected, int data) {
+	public Player searchId(int data) {
 		Node<Player> root = mainData.getRoot();
 		if(root.getKey().getId()==data) {
 			return root.getKey();
 		}else {
 			Player left = id(root.getLeft(),data);
-			Player right = id(root.getRight(),data);
 			if(left != null) {
 				return left;
-			}else {
-				return right;
 			}
+			Player right = id(root.getRight(),data);
+			return right;
 		}
 	}
 	
@@ -87,21 +86,57 @@ public class Manager {
 			return node.getKey();
 		}else{
 			Player left = id(node.getLeft(),id);
-			Player right = id(node.getRight(),id);
 			if(left != null) {
 				return left;
-			}else {
-				return right;
 			}
+			Player right = id(node.getRight(),id);
+			return right;
 		}
 	}
 	
-	public Player searchName(int selected, String name) {
-		
-		return null;
+	public Player searchName(String name) {
+		Node<Player> root = mainData.getRoot();
+		if(root.getKey().getName()==name) {
+			return root.getKey();
+		}else {
+			Player left = name(root.getLeft(),name);
+			if(left != null) {
+				return left;
+			}
+			Player right = name(root.getRight(),name);
+			return right;
+		}
 	}
 	
-	public Player searchAge(int selected, int age) {
+	private Player name(Node<Player> node, String name) {
+		if(node.getKey().getName().equalsIgnoreCase(name)) {
+			return node.getKey();
+		}else {
+			Player left = name(node.getLeft(),name);
+			if(left != null) {
+				return left;
+			}
+			Player right = name(node.getRight(),name);
+			return right;
+		}
+	}
+	
+	public Player searchAge(int age) {
+		Node<Player> root = mainData.getRoot();
+		if(root.getKey().getAge()==age) {
+			return root.getKey();
+		}else {
+			Player left = age(root.getLeft(),age);
+			if(left != null) {
+				return left;
+			}
+			Player right = age(root.getRight(),age);
+			return right;
+		}
+	}
+	
+	private Player age(Node<Player> node, int age) {
+		
 		return null;
 	}
 	
