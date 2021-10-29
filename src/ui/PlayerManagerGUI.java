@@ -30,7 +30,7 @@ public class PlayerManagerGUI {
 	private static ArrayList<Player> players;
 	private static final String SAVE_PLAYERS_PATH="data/players.ap2";
 	public PlayerManagerGUI() {
-		loadData();
+		//loadData();
 	}
 
 	@FXML
@@ -96,13 +96,13 @@ public class PlayerManagerGUI {
 	    private Label blocks;
 	    
 	    @FXML
-	    private ListView<?> lvDeletedPlayers;
+	    private ListView<Player> lvDeletedPlayers;
 	    
 	    @FXML
 	    private TextField playerToDelete;
 	    
 	    @FXML
-	    private ListView<?> lvSearchedPlayers;
+	    private ListView<Player> lvSearchedPlayers;
 
 
 	public void initProgram(){
@@ -121,7 +121,7 @@ public class PlayerManagerGUI {
 			e.printStackTrace();
 		}
 	}
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	public static void loadData(){
 		File playerList = new File(SAVE_PLAYERS_PATH);
 		if (playerList.exists()) {
@@ -147,7 +147,7 @@ public class PlayerManagerGUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	@FXML
 	public void mainWindowStart(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-window.fxml"));
