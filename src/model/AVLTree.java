@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class AVLTree<T extends Comparable<T>> {
 	private Node<T> root;
 

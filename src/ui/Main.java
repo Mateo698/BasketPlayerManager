@@ -1,7 +1,6 @@
 package ui;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,13 +20,12 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("loading.fxml"));
-		fxmlloader.setController(gui);
-		Parent root = fxmlloader.load();
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		
-		
+		FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("main-pane.fxml"));
+        fxmlloader.setController(gui);
+        Parent root = fxmlloader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        gui.initProgram();
 	}
 }
