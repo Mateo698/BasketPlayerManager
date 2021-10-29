@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class BSTree<T extends Comparable<T>> {
 	private Node<T> root;
 
@@ -80,5 +82,29 @@ public class BSTree<T extends Comparable<T>> {
         return minv;
     }
  
+    public ArrayList<T> toArrayList(){
+		ArrayList<T> a = new ArrayList<T>();
+		if(root != null) {
+			a.add(root.getKey());
+			if(root.getRight() != null) {
+				a = toArray(root.getRight(),a);
+			}
+			if(root.getLeft() != null) {
+				a = toArray(root.getLeft(),a);
+			}
+		}
+		return null;
+	}
 	
+	private ArrayList<T> toArray(Node<T> node,ArrayList<T> a){
+		a.add(node.getKey());
+		if(node.getRight() != null) {
+			a = toArray(node.getRight(),a);
+		}
+		if(node.getLeft()!=null) {
+			a = toArray(node.getLeft(),a);
+		}
+		
+		return a;
+	}
 }

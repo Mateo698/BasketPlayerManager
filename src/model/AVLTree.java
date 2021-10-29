@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class AVLTree<T extends Comparable<T>> {
 	private Node<T> root;
 
@@ -160,4 +162,6 @@ public class AVLTree<T extends Comparable<T>> {
 	public void setRoot(Node<T> root) {
 		this.root = root;
 	}
+	
+	
 }
