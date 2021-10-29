@@ -105,6 +105,7 @@ public class BSTree<T extends Comparable<T>> {
 			a = toArray(node.getLeft(),a);
 		}
 		
+		
 		return a;
 	}
 }
