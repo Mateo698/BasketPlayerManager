@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.TextField;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,8 +15,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import model.Player;
 import threads.Loading;
@@ -35,7 +38,62 @@ public class PlayerManagerGUI {
 	private ProgressIndicator percentage;
 	@FXML
 	private Pane mainPane;
-	
+	@FXML
+	private GridPane mainGrid;
+	@FXML
+	    private TextField playerName;
+
+	    @FXML
+	    private TextField playerId;
+
+	    @FXML
+	    private TextField playerPoints;
+
+	    @FXML
+	    private TextField playerAge;
+
+	    @FXML
+	    private TextField playerTeam;
+
+	    @FXML
+	    private TextField playerRebounds;
+
+	    @FXML
+	    private Label name;
+
+	    @FXML
+	    private Label age;
+
+	    @FXML
+	    private Label id;
+
+	    @FXML
+	    private Label team;
+
+	    @FXML
+	    private Label points;
+
+	    @FXML
+	    private Label rebounds;
+
+	    @FXML
+	    private TextField playerAssists;
+
+	    @FXML
+	    private TextField playerSteals;
+
+	    @FXML
+	    private Label assists;
+
+	    @FXML
+	    private Label steals;
+
+	    @FXML
+	    private TextField playerBlocks;
+
+	    @FXML
+	    private Label blocks;
+
 	public void initProgram(){
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("loading.fxml"));
 		fxmlLoader.setController(this);
@@ -90,6 +148,44 @@ public class PlayerManagerGUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    
+	}
+		
+
+		    @FXML
+		    void toAddPlayer(ActionEvent event) {
+
+		    }
+
+		    @FXML
+		    void toDeletePlayers(ActionEvent event) {
+
+		    }
+
+		    @FXML
+		    void toLoadPlayers(ActionEvent event) {
+
+		    }
+
+		    @FXML
+		    void toSearchPlayer(ActionEvent event) {
+
+		    }
+		    @FXML
+		    void addPlayer(ActionEvent event) {
+
+		    }
+		    @FXML
+		    void exit(ActionEvent event) {
+
+		    }
+
+		    @FXML
+		    void showDeletedList(ActionEvent event) {
+
+		    }
+
+
+		
 	} 
-}
+	
+

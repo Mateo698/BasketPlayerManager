@@ -7,33 +7,38 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: LightBlue;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="mainGrid" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: LightBlue;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="310.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="290.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="613.0" text="Minesweeper" textAlignment="CENTER" textFill="#304ec6">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="613.0" text="Player Manager" textAlignment="CENTER" textFill="#304ec6" GridPane.columnSpan="2">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#createNewGame" prefHeight="51.0" prefWidth="330.0" style="-fx-background-color: LightGrey;" text="New game" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#toAddPlayer" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: LightGrey;" text="Add Player" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" onAction="#showTimes" prefHeight="51.0" prefWidth="329.0" style="-fx-background-color: LightGrey;" text="Time leaderboard" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Button mnemonicParsing="false" onAction="#toDeletePlayers" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: LightGrey;" text="Delete players" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" onAction="#changeProfile" prefHeight="27.0" prefWidth="329.0" style="-fx-background-color: LightGrey;" text="Change profile" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <Button mnemonicParsing="false" onAction="#toLoadPlayers" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: LightGrey;" text="Load players" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#toSearchPlayer" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: lightGrey;" text="Search player" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <font>
             <Font size="24.0" />
          </font>
