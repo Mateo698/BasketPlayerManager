@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class BSTree<T extends Comparable<T>> {
 	private Node<T> root;
 
@@ -32,9 +34,13 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	
-	public Node<T> search(Node<T> root, T key){
-	    if (root==null || root.getKey().compareTo(key)==0)
-	        return root;
+	public T search(Node<T> root, T key){
+	    if (root==null) {
+	    	   return null;
+	    }else if(root.getKey().compareTo(key)==0){
+	    	return root.getKey();
+	    }
+	     
 	    if (root.getKey().compareTo(key)<0)
 	       return search(root.getRight(), key);
 	    return search(root.getLeft(), key);
@@ -42,50 +48,63 @@ public class BSTree<T extends Comparable<T>> {
 
 
 	
-	public Node<T> deleteNode(Node<T> root, T k){
-	    if (root == null)
-	        return root;
-	    if (root.getKey().compareTo(k)>0)
-	    {
-	        root.setLeft(deleteNode(root.getLeft(), k));
-	        return root;
-	    }
-	    else if (root.getKey().compareTo(k)<0)
-	    {
-	        root.setRight(deleteNode(root.getRight(), k));
-	        return root;
-	    }
+	public void deleteKey(T key) { 
+		root = deleteRec(root, key); 
+	}
 	 
-	    if (root.getLeft() == null)
-	    {
-	        Node<T> temp = root.getRight();
-	        return temp;
-	    }
-	    else if (root.getRight() == null)
-	    {
-	        Node<T> temp = root.getLeft();
-	        return temp;
-	    }
-	 
-	    else{
-	        Node<T> succParent = root;
-	        Node<T> succ = root.getRight();
-	         
-	        while (succ.getLeft() != null){
-	            succParent = succ;
-	            succ = succ.getLeft();
-	        }
-	 
-	        
-	        if (succParent != root)
-	            succParent.setLeft(succ.getRight());
-	        else
-	            succParent.setRight(succ.getRight());
-	 
-	        root.setKey(succ.getKey());
-	 
-	        return root;
-	    }
+   
+    private Node<T> deleteRec(Node<T> root, T key){
+        if (root == null)
+            return root;
+        if (key.compareTo(root.getKey())<0)
+            root.setLeft(deleteRec(root.getLeft(), key));
+        else if (key.compareTo(root.getKey())>0)
+            root.setRight(deleteRec(root.getRight(), key));
+        else {
+            if (root.getLeft() == null)
+                return root.getRight();
+            else if (root.getRight() == null)
+                return root.getLeft();
+            root.setKey(minValue(root.getRight()));
+            root.setRight(deleteRec(root.getRight(), root.getKey()));
+        }
+ 
+        return root;
+    }
+    
+    public T minValue(Node<T> root){
+        T minv = root.getKey();
+        while (root.getLeft() != null)
+        {
+            minv = root.getLeft().getKey();
+            root = root.getLeft();
+        }
+        return minv;
+    }
+ 
+    public ArrayList<T> toArrayList(){
+		ArrayList<T> a = new ArrayList<T>();
+		if(root != null) {
+			a.add(root.getKey());
+			if(root.getRight() != null) {
+				a = toArray(root.getRight(),a);
+			}
+			if(root.getLeft() != null) {
+				a = toArray(root.getLeft(),a);
+			}
+		}
+		return null;
 	}
 	
+	private ArrayList<T> toArray(Node<T> node,ArrayList<T> a){
+		a.add(node.getKey());
+		if(node.getRight() != null) {
+			a = toArray(node.getRight(),a);
+		}
+		if(node.getLeft()!=null) {
+			a = toArray(node.getLeft(),a);
+		}
+		
+		return a;
+	}
 }

@@ -31,9 +31,13 @@ public class StatisticData implements Comparable<StatisticData>{
 			return -1;
 		}else if(data>o.getData()) {
 			return 1;
-		}else {
+		}else if(o.getData() == data && o.getIndex() == index){
 			return 0;
+		}else {
+			return 1;
 		}
-	}
+			
+		}
 	
 }
+	

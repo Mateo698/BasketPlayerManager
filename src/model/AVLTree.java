@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class AVLTree<T extends Comparable<T>> {
 	private Node<T> root;
 
@@ -47,13 +49,17 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 	
 	public Node<T> search(Node<T> root, T key){
-	    if (root==null || root.getKey().compareTo(key)==0)
+	    if (root==null || root.getKey().compareTo(key)==1)
 	        return root;
 	    if (root.getKey().compareTo(key)<0)
 	       return search(root.getRight(), key);
 	    return search(root.getLeft(), key);
 	}
-
+	
+	public void add(T key) {
+			root = insert(root, key);
+	}
+	
 	public Node<T> insert(Node<T> node, T key) {
 		if (node == null)
 			return (new Node<T>(key));
@@ -99,15 +105,14 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	@SuppressWarnings("unused")
-	public Node<T> deleteNode(Node<T> root, T key)
-	{
+	public Node<T> deleteNode(Node<T> root, T key){
 		if (root == null)
 			return root;
 		if (key.compareTo(root.getKey())<0)
 			root.setLeft(deleteNode(root.getLeft(), key));
 		else if (key.compareTo(root.getKey())>0)
 			root.setRight(deleteNode(root.getRight(), key));
-		else{
+		else {
 			if ((root.getLeft() == null) || (root.getRight() == null)){
 				Node<T> temp = null;
 				if (temp == root.getLeft())
@@ -157,4 +162,6 @@ public class AVLTree<T extends Comparable<T>> {
 	public void setRoot(Node<T> root) {
 		this.root = root;
 	}
+	
+	
 }
