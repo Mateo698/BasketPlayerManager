@@ -99,8 +99,26 @@ public class PlayerManagerGUI {
 	@FXML
 	private TextField playerToDelete;
 
+<<<<<<< Updated upstream
 	@FXML
 	private ListView<Player> lvSearchedPlayers;
+=======
+	    @FXML
+	    private Label blocks;
+	    
+	    @FXML
+	    private ListView<Player> lvDeletedPlayers;
+	    
+	    @FXML
+	    private TextField playerToDelete;
+	    
+	    @FXML
+	    private ListView<Player> lvSearchedPlayers;
+	    
+	    @FXML
+	    private GridPane loadingGrid;
+
+>>>>>>> Stashed changes
 
 
 	public void initProgram() throws IOException{
@@ -213,6 +231,7 @@ public class PlayerManagerGUI {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< Updated upstream
 	@FXML
 	void addPlayer(ActionEvent event) {
 
@@ -250,4 +269,94 @@ public class PlayerManagerGUI {
 
 } 
 
+=======
+		    @FXML
+		    void toAddPlayer(ActionEvent event) {
+		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addPlayer-window.fxml"));
+				Parent userView;
+				try {
+				userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		    }
+
+		    @FXML
+		    void toDeletePlayers(ActionEvent event) {
+		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deletePlayer-window.fxml"));
+				Parent userView;
+				try {
+				userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		    }
+
+		    @FXML
+		    void toLoadPlayers(ActionEvent event) {
+		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("importPlayer-window.fxml"));
+				Parent userView;
+				try {
+				userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		    }
+
+		    @FXML
+		    void toSearchPlayer(ActionEvent event) {
+		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchPlayer-window.fxml"));
+				Parent userView;
+				try {
+				userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		    }
+		    @FXML
+		    void addPlayer(ActionEvent event) {
+
+		    }
+		    @FXML
+		    void exit(ActionEvent event) {
+
+		    }
+
+		    @FXML
+		    void showDeletedList(ActionEvent event) {
+
+		    }		   
+
+		    @FXML
+		    void restorePlayer(ActionEvent event) {
+
+		    }
+		    
+		    @FXML
+		    void deletePlayer(ActionEvent event) {
+
+		    }
+
+		    @FXML
+		    void playerToSearch(ActionEvent event) {
+
+		    }
+
+		    @FXML
+		    void searchPlayer(ActionEvent event) {
+
+		    }
+
+		
+	} 
+	
+>>>>>>> Stashed changes
 
