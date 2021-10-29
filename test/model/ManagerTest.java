@@ -48,7 +48,7 @@ class ManagerTest {
 		m.addPlayer(playerThree);
 		m.addPlayer(playerTwo);
 		m.addPlayer(playerOne);
-		assertEquals(m.quickSearch(1, 5.02), null);
+		assertEquals(m.quickSearch(1, 5.02), playerOne);
 	}
 
 }
