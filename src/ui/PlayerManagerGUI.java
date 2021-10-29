@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.GridPane;
@@ -93,6 +94,16 @@ public class PlayerManagerGUI {
 
 	    @FXML
 	    private Label blocks;
+	    
+	    @FXML
+	    private ListView<?> lvDeletedPlayers;
+	    
+	    @FXML
+	    private TextField playerToDelete;
+	    
+	    @FXML
+	    private ListView<?> lvSearchedPlayers;
+
 
 	public void initProgram(){
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("loading.fxml"));
@@ -153,22 +164,54 @@ public class PlayerManagerGUI {
 
 		    @FXML
 		    void toAddPlayer(ActionEvent event) {
-
+		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addPlayer-window.fxml"));
+				Parent userView;
+				try {
+				userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		    }
 
 		    @FXML
 		    void toDeletePlayers(ActionEvent event) {
-
+		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deletePlayer-window.fxml"));
+				Parent userView;
+				try {
+				userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		    }
 
 		    @FXML
 		    void toLoadPlayers(ActionEvent event) {
-
+		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("importPlayer-window.fxml"));
+				Parent userView;
+				try {
+				userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		    }
 
 		    @FXML
 		    void toSearchPlayer(ActionEvent event) {
-
+		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchPlayer-window.fxml"));
+				Parent userView;
+				try {
+				userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		    }
 		    @FXML
 		    void addPlayer(ActionEvent event) {
@@ -182,8 +225,27 @@ public class PlayerManagerGUI {
 		    @FXML
 		    void showDeletedList(ActionEvent event) {
 
+		    }		   
+
+		    @FXML
+		    void restorePlayer(ActionEvent event) {
+
+		    }
+		    
+		    @FXML
+		    void deletePlayer(ActionEvent event) {
+
 		    }
 
+		    @FXML
+		    void playerToSearch(ActionEvent event) {
+
+		    }
+
+		    @FXML
+		    void searchPlayer(ActionEvent event) {
+
+		    }
 
 		
 	} 
