@@ -1,5 +1,8 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Manager {
@@ -221,12 +224,36 @@ public class Manager {
 		
 	}
 	
-	public void loadData() {
-		
+	public void importData(String path) throws IOException{
+		BufferedReader br = new BufferedReader(new FileReader(path));
+		String line = br.readLine();
+		line = br.readLine();
+		while(line != null) {
+			String[] parts = line.split(",");
+			int id = Integer.parseInt(parts[37]);
+			String name = parts[2];
+			int age = Integer.parseInt(parts[3]);
+			String team = parts[1];
+			double points = Double.parseDouble(parts[6]);
+			double rebound = Double.parseDouble(parts[12]);
+			double assist = Double.parseDouble(parts[13]);
+			double steal = Double.parseDouble(parts[14]);
+			double block = Double.parseDouble(parts[15]);
+			Player p = new Player(id, name, age, team, points, rebound, assist, steal, block);
+			addPlayer(p);
+			line = br.readLine();
+			/**37 id
+			2 name
+			3 age
+			1 team
+			6 pm
+			12 reb
+			13 ass
+			14 steal
+			15 block**/
+		}
+		br.close();
 	}
-
-	public void importPlayers(String absolutePath) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	
 }
