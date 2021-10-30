@@ -12,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
@@ -19,7 +21,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import model.Game;
+import javafx.stage.FileChooser;
 import model.Manager;
 import model.Player;
 import threads.Loading;
@@ -193,7 +195,32 @@ public class PlayerManagerGUI {
 
 		    @FXML
 		    void loadPlayers(ActionEvent event) {
-		    	
+		    	FileChooser fc = new FileChooser();
+		        fc.setTitle("Select the base products list");
+		        File f = fc.showOpenDialog(mainPane.getScene().getWindow());
+		        manager.importPlayers(f.getAbsolutePath());
+		        
+		        if(f!=null) {
+		        Alert alert = new Alert(AlertType.INFORMATION);
+		        alert.setTitle("Import players");
+		        alert.setHeaderText("Players have been loaded successfully");
+		        alert.showAndWait();
+		        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-window.fxml"));
+				fxmlLoader.setController(this);
+				Parent userView;
+				try {
+					userView = fxmlLoader.load();
+					mainPane.getChildren().clear();
+					mainPane.getChildren().add(userView);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		        }else {
+		        	 Alert alert = new Alert(AlertType.INFORMATION);
+				        alert.setTitle("Import players");
+				        alert.setHeaderText("File not found");
+				        alert.showAndWait();
+		        }
 		    }
 
 		    @FXML
@@ -229,7 +256,28 @@ public class PlayerManagerGUI {
 		    
 		    @FXML
 		    void deletePlayer(ActionEvent event) {
-		    	manager.removePlayer();
+		    	manager.removePlayer(manager.searchId(Integer.parseInt(playerToDelete.getText())));
+		    	if(manager.searchId(Integer.parseInt(playerToDelete.getText()))!=null) {
+		    		Alert alert = new Alert(AlertType.INFORMATION);
+			        alert.setTitle("Delete players");
+			        alert.setHeaderText("Player "+manager.searchId(Integer.parseInt(playerToDelete.getText()))+" has been deleted successfully");
+			        alert.showAndWait();
+			        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-window.fxml"));
+					fxmlLoader.setController(this);
+					Parent userView;
+					try {
+						userView = fxmlLoader.load();
+						mainPane.getChildren().clear();
+						mainPane.getChildren().add(userView);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+		    	}else {
+		    		Alert alert = new Alert(AlertType.INFORMATION);
+			        alert.setTitle("Delete players");
+			        alert.setHeaderText("Player not found");
+			        alert.showAndWait();
+		    	}
 		    }
 
 		    @FXML
