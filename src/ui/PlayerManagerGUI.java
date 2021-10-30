@@ -19,6 +19,8 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import model.Game;
+import model.Manager;
 import model.Player;
 import threads.Loading;
 import threads.Percentage;
@@ -27,6 +29,7 @@ import threads.Percentage;
 public class PlayerManagerGUI {
 	private static ArrayList<Player> players;
 	private static final String SAVE_PLAYERS_PATH="data/players.ap2";
+	private static Manager manager;
 	public PlayerManagerGUI() {
 		loadData();
 	}
@@ -189,16 +192,8 @@ public class PlayerManagerGUI {
 		    }
 
 		    @FXML
-		    void toLoadPlayers(ActionEvent event) {
-		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("importPlayer-window.fxml"));
-				Parent userView;
-				try {
-				userView = fxmlLoader.load();
-				mainPane.getChildren().clear();
-				mainPane.getChildren().add(userView);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+		    void loadPlayers(ActionEvent event) {
+		    	
 		    }
 
 		    @FXML
@@ -215,7 +210,7 @@ public class PlayerManagerGUI {
 		    }
 		    @FXML
 		    void addPlayer(ActionEvent event) {
-
+		    	manager.addPlayer(Integer.parseInt(playerId.getText()), playerName.getText(), Integer.parseInt(playerAge.getText()), playerTeam.getText(),Double.parseDouble(playerPoints.getText()), Double.parseDouble(playerRebounds.getText()),Double.parseDouble(playerAssists.getText()), Double.parseDouble(playerSteals.getText()),Double.parseDouble(playerBlocks.getText()));
 		    }
 		    @FXML
 		    void exit(ActionEvent event) {
@@ -234,7 +229,7 @@ public class PlayerManagerGUI {
 		    
 		    @FXML
 		    void deletePlayer(ActionEvent event) {
-
+		    	manager.removePlayer();
 		    }
 
 		    @FXML
