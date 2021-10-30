@@ -254,11 +254,6 @@ public class Manager {
 		}
 		br.close();
 	}
-
-	public void importPlayers(String absolutePath) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 }

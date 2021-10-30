@@ -206,7 +206,12 @@ public class PlayerManagerGUI {
 		    	FileChooser fc = new FileChooser();
 		        fc.setTitle("Select the base products list");
 		        File f = fc.showOpenDialog(mainPane.getScene().getWindow());
-		        manager.importPlayers(f.getAbsolutePath());
+		        try {
+					manager.importData(f.getAbsolutePath());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		        
 		        Alert alert = new Alert(AlertType.INFORMATION);
 		        alert.setTitle("Import players");
@@ -328,8 +333,19 @@ public class PlayerManagerGUI {
 		    @FXML
 		    void quickSearch(ActionEvent event) {
 		    	int selection=0;
+		    	quicksearchComboBox.getItems().addAll("id", "name", "age", "team", "points", "rebounds", "assists", "steals", "blocks");
+		    	 if(quicksearchComboBox.getValue().equals("id")) {
+				    	selection = 1;
+				    }else if(quicksearchComboBox.getValue().equals("name")) {
+				    	selection = 2;
+				    }else if(quicksearchComboBox.getValue().equals("age")) {
+				    	selection = 3;
+				    }else if(quicksearchComboBox.getValue().equals("team")) {
+				    	selection = 4;
+				    }
 		    	switch(selection){
 		    	case 1:
+		    		
 		    		break;
 		    	case 2:
 		    		break;
