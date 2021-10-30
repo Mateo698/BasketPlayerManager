@@ -34,7 +34,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" onAction="#toLoadPlayers" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: LightGrey;" text="Load players" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Button mnemonicParsing="false" onAction="#loadPlayers" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: LightGrey;" text="Load players" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font size="20.0" />
          </font>
