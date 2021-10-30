@@ -20,7 +20,6 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ComboBox prefWidth="150.0" scaleX="0.75" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
       <Label text="Select the searching key" GridPane.halignment="CENTER">
          <font>
             <Font size="20.0" />
@@ -31,8 +30,9 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField onAction="#playerToSearch" scaleX="0.75" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <TextField fx:id="playerToSearch" scaleX="0.75" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
       <Button mnemonicParsing="false" onAction="#mainWindowStart" text="Back" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Button mnemonicParsing="false" onAction="#searchPlayer" text="Search" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <ComboBox fx:id="searchComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
    </children>
 </GridPane>

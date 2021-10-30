@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
@@ -35,7 +36,12 @@ public class PlayerManagerGUI {
 	public PlayerManagerGUI() {
 		loadData();
 	}
-
+	@FXML
+	private TextField playerToSearch;
+    @FXML
+    private ComboBox<String> searchComboBox;
+    @FXML
+    private ComboBox<String> quicksearchComboBox;
 	@FXML
 	private ProgressBar bar;
 	@FXML
@@ -107,10 +113,12 @@ public class PlayerManagerGUI {
 
 	@FXML
 	private ListView<Player> lvSearchedPlayers;
-
-	    
+   
 	@FXML
 	private GridPane loadingGrid;
+	
+	@FXML
+    private TextField quickSearchData;
 
 
 	public void initProgram() throws IOException{
@@ -200,7 +208,6 @@ public class PlayerManagerGUI {
 		        File f = fc.showOpenDialog(mainPane.getScene().getWindow());
 		        manager.importPlayers(f.getAbsolutePath());
 		        
-		        if(f!=null) {
 		        Alert alert = new Alert(AlertType.INFORMATION);
 		        alert.setTitle("Import players");
 		        alert.setHeaderText("Players have been loaded successfully");
@@ -215,12 +222,6 @@ public class PlayerManagerGUI {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-		        }else {
-		        	 Alert alert = new Alert(AlertType.INFORMATION);
-				        alert.setTitle("Import players");
-				        alert.setHeaderText("File not found");
-				        alert.showAndWait();
-		        }
 		    }
 
 		    @FXML
@@ -280,14 +281,66 @@ public class PlayerManagerGUI {
 		    	}
 		    }
 
-		    @FXML
-		    void playerToSearch(ActionEvent event) {
-
-		    }
 
 		    @FXML
 		    void searchPlayer(ActionEvent event) {
+		    int selection=0;
+		    searchComboBox.getItems().addAll("id", "name", "age", "team", "points", "rebounds", "assists", "steals", "blocks");
+		    if(searchComboBox.getValue().equals("id")) {
+		    	selection = 1;
+		    }else if(searchComboBox.getValue().equals("name")) {
+		    	selection = 2;
+		    }else if(searchComboBox.getValue().equals("age")) {
+		    	selection = 3;
+		    }else if(searchComboBox.getValue().equals("team")) {
+		    	selection = 4;
+		    }/*else if(searchComboBox.getValue().equals("points")) {
+		    	selection = 5;
+		    }else if(searchComboBox.getValue().equals("rebounds")) {
+		    	selection = 6;
+		    }else if(searchComboBox.getValue().equals("assists")) {
+		    	selection = 7;
+		    }else if(searchComboBox.getValue().equals("steals")) {
+		    	selection = 8;
+		    }else if(searchComboBox.getValue().equals("blocks")) {
+		    	selection = 9;
+		    }*/
+		    
+		    
+		    	switch(selection){
+		    	case 1:
+		    		manager.searchId(Integer.parseInt(playerToSearch.getText()));
+		    		break;
+		    	case 2:
+		    		manager.searchName(playerToSearch.getText());
+		    		break;
+		    	case 3:
+		    		manager.searchAge(Integer.parseInt(playerToSearch.getText()));
+		    		break;
+		    	case 4: 
+		    		manager.searchTeam(playerToSearch.getText());
+		    		break;
+		    	default:
+		    		break;
+		    	}
+		    }
 
+		    @FXML
+		    void quickSearch(ActionEvent event) {
+		    	int selection=0;
+		    	switch(selection){
+		    	case 1:
+		    		break;
+		    	case 2:
+		    		break;
+		    	case 3:
+		    		break;
+		    	case 4: 
+		    		break;
+		    	default:
+		    		break;
+		    		
+		    	}
 		    }
 
 		

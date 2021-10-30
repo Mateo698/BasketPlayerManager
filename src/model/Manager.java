@@ -171,7 +171,7 @@ public class Manager {
 		}
 	}
 	
-	public Player searchTeam(int selected, String team) {
+	public Player searchTeam(String team) {
 		Node<Player> root = mainData.getRoot();
 		if(root == null) {
 			return null;
