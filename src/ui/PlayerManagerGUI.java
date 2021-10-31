@@ -8,6 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.Manager;
 import model.Player;
 import threads.Loading;
@@ -33,6 +36,7 @@ public class PlayerManagerGUI {
 	private static ArrayList<Player> players;
 	private static final String SAVE_PLAYERS_PATH="data/players.ap2";
 	private static Manager manager;
+	private static ArrayList<Player> deletedPlayers;
 	public PlayerManagerGUI() {
 		loadData();
 	}
@@ -247,22 +251,37 @@ public class PlayerManagerGUI {
 		    }
 		    @FXML
 		    void exit(ActionEvent event) {
-
+		    	Platform.exit();
 		    }
 
 		    @FXML
 		    void showDeletedList(ActionEvent event) {
-
+		    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deletedPlayerList-window.fxml"));
+				Parent userView;
+				try {
+				userView = fxmlLoader.load();
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(userView);
+				lvDeletedPlayers.setItems(FXCollections.observableArrayList(deletedPlayers));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
 		    }		   
 
 		    @FXML
 		    void restorePlayer(ActionEvent event) {
-
+		    	Player playerToRestore = lvDeletedPlayers.getSelectionModel().getSelectedItem();
+		    	manager.addPlayer(playerToRestore);
+		    	
 		    }
 		    
 		    @FXML
 		    void deletePlayer(ActionEvent event) {
+		    	Player playerTemp=manager.searchId(Integer.parseInt(playerToDelete.getText()));
+		    	deletedPlayers.add(playerTemp);
 		    	manager.removePlayer(manager.searchId(Integer.parseInt(playerToDelete.getText())));
+		    	
 		    	if(manager.searchId(Integer.parseInt(playerToDelete.getText()))!=null) {
 		    		Alert alert = new Alert(AlertType.INFORMATION);
 			        alert.setTitle("Delete players");
@@ -290,7 +309,7 @@ public class PlayerManagerGUI {
 		    @FXML
 		    void searchPlayer(ActionEvent event) {
 		    int selection=0;
-		    searchComboBox.getItems().addAll("id", "name", "age", "team", "points", "rebounds", "assists", "steals", "blocks");
+		    searchComboBox.getItems().addAll("id", "name", "age", "team");
 		    if(searchComboBox.getValue().equals("id")) {
 		    	selection = 1;
 		    }else if(searchComboBox.getValue().equals("name")) {
@@ -299,17 +318,7 @@ public class PlayerManagerGUI {
 		    	selection = 3;
 		    }else if(searchComboBox.getValue().equals("team")) {
 		    	selection = 4;
-		    }/*else if(searchComboBox.getValue().equals("points")) {
-		    	selection = 5;
-		    }else if(searchComboBox.getValue().equals("rebounds")) {
-		    	selection = 6;
-		    }else if(searchComboBox.getValue().equals("assists")) {
-		    	selection = 7;
-		    }else if(searchComboBox.getValue().equals("steals")) {
-		    	selection = 8;
-		    }else if(searchComboBox.getValue().equals("blocks")) {
-		    	selection = 9;
-		    }*/
+		    }
 		    
 		    
 		    	switch(selection){
@@ -333,7 +342,7 @@ public class PlayerManagerGUI {
 		    @FXML
 		    void quickSearch(ActionEvent event) {
 		    	int selection=0;
-		    	quicksearchComboBox.getItems().addAll("id", "name", "age", "team", "points", "rebounds", "assists", "steals", "blocks");
+		    	quicksearchComboBox.getItems().addAll("points", "rebounds", "assists", "steals", "blocks");
 		    	 if(quicksearchComboBox.getValue().equals("id")) {
 				    	selection = 1;
 				    }else if(quicksearchComboBox.getValue().equals("name")) {
@@ -345,11 +354,13 @@ public class PlayerManagerGUI {
 				    }
 		    	switch(selection){
 		    	case 1:
-		    		
+		    		manager.quickSearch(selection,Integer.parseInt(quickSearchData.getText()));
 		    		break;
 		    	case 2:
+		    		manager.quickSearch(selection,Integer.parseInt(quickSearchData.getText()));
 		    		break;
 		    	case 3:
+		    		manager.quickSearch(selection,Integer.parseInt(quickSearchData.getText()));
 		    		break;
 		    	case 4: 
 		    		break;
