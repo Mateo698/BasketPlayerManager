@@ -343,26 +343,32 @@ public class PlayerManagerGUI {
 		    void quickSearch(ActionEvent event) {
 		    	int selection=0;
 		    	quicksearchComboBox.getItems().addAll("points", "rebounds", "assists", "steals", "blocks");
-		    	 if(quicksearchComboBox.getValue().equals("id")) {
+		    	 if(quicksearchComboBox.getValue().equals("points")) {
 				    	selection = 1;
-				    }else if(quicksearchComboBox.getValue().equals("name")) {
+				    }else if(quicksearchComboBox.getValue().equals("rebounds")) {
 				    	selection = 2;
-				    }else if(quicksearchComboBox.getValue().equals("age")) {
+				    }else if(quicksearchComboBox.getValue().equals("assists")) {
 				    	selection = 3;
-				    }else if(quicksearchComboBox.getValue().equals("team")) {
+				    }else if(quicksearchComboBox.getValue().equals("steals")) {
 				    	selection = 4;
+				    }else if(quicksearchComboBox.getValue().equals("blocks")) {
+				    	selection = 5;
 				    }
 		    	switch(selection){
 		    	case 1:
-		    		manager.quickSearch(selection,Integer.parseInt(quickSearchData.getText()));
+		    		manager.quickSearch(selection,Double.parseDouble(quickSearchData.getText()));
 		    		break;
 		    	case 2:
-		    		manager.quickSearch(selection,Integer.parseInt(quickSearchData.getText()));
+		    		manager.quickSearch(selection,Double.parseDouble(quickSearchData.getText()));
 		    		break;
 		    	case 3:
-		    		manager.quickSearch(selection,Integer.parseInt(quickSearchData.getText()));
+		    		manager.quickSearch(selection,Double.parseDouble(quickSearchData.getText()));
 		    		break;
 		    	case 4: 
+		    		manager.quickSearch(selection,Double.parseDouble(quickSearchData.getText()));
+		    		break;
+		    	case 5:
+		    		manager.quickSearch(selection,Double.parseDouble(quickSearchData.getText()));
 		    		break;
 		    	default:
 		    		break;
