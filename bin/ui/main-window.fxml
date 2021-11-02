@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <GridPane fx:id="mainGrid" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: LightBlue;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
@@ -39,11 +40,6 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" onAction="#toSearchPlayer" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: lightGrey;" text="Search player" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
       <Button alignment="CENTER" mnemonicParsing="false" onAction="#showDeletedList" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: LightGrey;" text="Deleted players" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <font>
             <Font size="20.0" />
@@ -54,5 +50,20 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+         <children>
+            <Button mnemonicParsing="false" onAction="#toSearchPlayer" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: lightGrey;" text="Search player">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Label />
+            <Button mnemonicParsing="false" onAction="#toQuickSearchPlayer" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: lightGrey;" text="Quick Search">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </GridPane>

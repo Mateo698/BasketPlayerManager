@@ -256,7 +256,21 @@ public class PlayerManagerGUI {
 			e.printStackTrace();
 		}
 	}
-
+	@FXML
+	void toQuickSearchPlayer(ActionEvent event) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quickSearch-window.fxml"));
+		Parent userView;
+		fxmlLoader.setController(this);
+		try {
+			userView = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(userView);
+			quicksearchComboBox.getItems().removeAll(quicksearchComboBox.getItems());
+			quicksearchComboBox.getItems().addAll("Points", "Rebounds", "Assists", "Steals", "Blocks");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
  	@FXML
 	void loadPlayers(ActionEvent event) {
 		FileChooser fc = new FileChooser();
@@ -488,8 +502,6 @@ public class PlayerManagerGUI {
 	@FXML
 	void quickSearch(ActionEvent event) {
 		int selection=0;
-		quicksearchComboBox.getItems().removeAll(quicksearchComboBox.getItems());
-		quicksearchComboBox.getItems().addAll("points", "rebounds", "assists", "steals", "blocks");
 		if(quicksearchComboBox.getValue().equals("points")) {
 			selection = 1;
 		}else if(quicksearchComboBox.getValue().equals("rebounds")) {
