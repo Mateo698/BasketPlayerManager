@@ -262,28 +262,17 @@ public class PlayerManagerGUI {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Select the base products list");
 		File f = fc.showOpenDialog(mainPane.getScene().getWindow());
-		try {
-			manager.importData(f.getAbsolutePath());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("e1");
-			e1.printStackTrace();
-			
-		} 
-
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Import players");
-		alert.setHeaderText("Players have been loaded successfully");
-		alert.showAndWait();
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-window.fxml"));
-		fxmlLoader.setController(this);
-		Parent userView;
-		try {
-			userView = fxmlLoader.load();
-			mainPane.getChildren().clear();
-			mainPane.getChildren().add(userView);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(f!=null) {
+			try {
+				manager.importData(f.getAbsolutePath());
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Import players");
+				alert.setHeaderText("Players have been loaded successfully");
+				alert.showAndWait();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
