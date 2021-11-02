@@ -21,7 +21,7 @@ public class BSTree<T extends Comparable<T>> {
 		root = insertRec(root, key);
 	}
 
-	public Node<T> insertRec(Node<T> root, T key){
+	private Node<T> insertRec(Node<T> root, T key){
 		System.out.println(key);
 		if (root == null){
 			root = new Node<T>(key);
