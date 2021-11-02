@@ -257,7 +257,7 @@ public class PlayerManagerGUI {
 		}
 	}
 
-	@FXML
+ 	@FXML
 	void loadPlayers(ActionEvent event) {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Select the base products list");
