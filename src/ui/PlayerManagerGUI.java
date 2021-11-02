@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +26,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import model.Manager;
 import model.Player;
 import threads.Loading;
@@ -309,6 +309,7 @@ public class PlayerManagerGUI {
 	@FXML
 	void searchPlayer(ActionEvent event) {
 		int selection=0;
+		searchComboBox.getItems().removeAll(searchComboBox.getItems());
 		searchComboBox.getItems().addAll("id", "name", "age", "team");
 		if(searchComboBox.getValue().equals("id")) {
 			selection = 1;
@@ -342,6 +343,7 @@ public class PlayerManagerGUI {
 	@FXML
 	void quickSearch(ActionEvent event) {
 		int selection=0;
+		quicksearchComboBox.getItems().removeAll(quicksearchComboBox.getItems());
 		quicksearchComboBox.getItems().addAll("points", "rebounds", "assists", "steals", "blocks");
 		if(quicksearchComboBox.getValue().equals("points")) {
 			selection = 1;
