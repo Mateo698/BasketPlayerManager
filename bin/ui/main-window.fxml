@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="mainGrid" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: LightBlue;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PlayerManagerGUI">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="200.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="200.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="200.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="613.0" text="Player Manager" textAlignment="CENTER" textFill="#304ec6" GridPane.columnSpan="3" GridPane.halignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#toAddPlayer" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: LightGrey;" text="Add Player" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#toDeletePlayers" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: LightGrey;" text="Delete players" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#toLoadPlayers" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: LightGrey;" text="Load players" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#toSearchPlayer" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: lightGrey;" text="Search player" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#showDeletedList" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: LightGrey;" text="Deleted players" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#exit" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: LightGrey;" text="Exit" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
+</GridPane>
