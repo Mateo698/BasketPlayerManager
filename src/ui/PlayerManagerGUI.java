@@ -407,25 +407,25 @@ public class PlayerManagerGUI {
 				alertWarnings.setContentText("Please fill all the info.");
 				alertWarnings.show();
 			}else {
-				double initTime = System.currentTimeMillis();
+				double initTime = System.nanoTime();
 				double endTiem = 0;
 				Player found = new Player(0);
 				switch(selection){
 				case 1:
 					found = manager.searchId(Integer.parseInt(playerToSearch.getText()));
-					endTiem = System.currentTimeMillis();
+					endTiem = System.nanoTime();
 					break;
 				case 2:
 					found = manager.searchName(playerToSearch.getText());
-					endTiem = System.currentTimeMillis();
+					endTiem = System.nanoTime();
 					break;
 				case 3:
 					found = manager.searchAge(Integer.parseInt(playerToSearch.getText()));
-					endTiem = System.currentTimeMillis();
+					endTiem = System.nanoTime();
 					break;
 				case 4: 
 					found = manager.searchTeam(playerToSearch.getText());
-					endTiem = System.currentTimeMillis();
+					endTiem = System.nanoTime();
 					break;
 				default:
 					break;
