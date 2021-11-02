@@ -221,6 +221,7 @@ public class Manager {
 		addPlayer(editedPlayer);
 	}
 	
+	@SuppressWarnings("resource")
 	public void importData(String path) throws IOException{
 		ArrayList<Player> list = new ArrayList<Player>();
 		BufferedReader br = new BufferedReader(new FileReader(path));
@@ -241,9 +242,8 @@ public class Manager {
 			Player p = new Player(id, name, age, team, points, rebound, assist, steal, block);
 			list.add(p);
 		}
-		
-		br.close();
 		addlist(list);
+		br.close();
 	}
 	
 	public void addlist(ArrayList<Player> l) {
