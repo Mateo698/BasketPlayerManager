@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="855.0" style="-fx-background-color: lightBlue;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="340.0" layoutY="22.0" text="Information found">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="playerTable" layoutX="25.0" layoutY="115.0" prefHeight="139.0" prefWidth="805.0" visible="false">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="157.0" text="Id" />
+          <TableColumn fx:id="nameCol" prefWidth="164.0" text="Name" />
+            <TableColumn fx:id="ageCol" prefWidth="78.0" text="Age" />
+            <TableColumn fx:id="teamCol" prefWidth="117.0" text="Team" />
+            <TableColumn fx:id="pointCol" prefWidth="62.0" text="POINTS" />
+            <TableColumn fx:id="rebCol" prefWidth="59.0" text="REB" />
+            <TableColumn fx:id="assCol" prefWidth="65.0" text="ASSIST" />
+            <TableColumn fx:id="stlCol" prefWidth="48.0" text="STL" />
+            <TableColumn fx:id="blockCol" prefWidth="54.0" text="BLK" />
+        </columns>
+      </TableView>
+      <Button layoutX="354.0" layoutY="266.0" mnemonicParsing="false" onAction="#foundBttn" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: lightGrey;" text="Ok" />
+      <Label fx:id="noFoundLabel" layoutX="328.0" layoutY="119.0" text="No data found" visible="false">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="29.0" text="Time to found:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="timeLabel" layoutX="160.0" layoutY="31.0" text="Label" />
+   </children>
+</Pane>

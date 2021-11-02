@@ -22,10 +22,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.Manager;
 import model.Player;
 import threads.Loading;
@@ -38,8 +42,47 @@ public class PlayerManagerGUI {
 	private static Manager manager;
 	private static ArrayList<Player> deletedPlayers;
 	public PlayerManagerGUI() {
+		manager = new Manager();
 		loadData();
 	}
+	private Stage s;
+	
+	@FXML
+    private Label timeLabel;
+	
+	@FXML
+    private TableView<Player> playerTable;
+
+    @FXML
+    private TableColumn<Player, Integer> idCol;
+
+    @FXML
+    private TableColumn<Player, String> nameCol;
+
+    @FXML
+    private TableColumn<Player, Integer> ageCol;
+
+    @FXML
+    private TableColumn<Player, String> teamCol;
+
+    @FXML
+    private TableColumn<Player, Double> pointCol;
+
+    @FXML
+    private TableColumn<Player, Double> rebCol;
+
+    @FXML
+    private TableColumn<Player, Double> assCol;
+
+    @FXML
+    private TableColumn<Player, Double> stlCol;
+
+    @FXML
+    private TableColumn<Player, Double> blockCol;
+
+    @FXML
+    private Label noFoundLabel;
+
 	@FXML
 	private TextField playerToSearch;
 	@FXML
@@ -123,9 +166,16 @@ public class PlayerManagerGUI {
 
 	@FXML
 	private TextField quickSearchData;
+	
+	@FXML
+    void foundBttn(ActionEvent event) {
+		s.setHeight(600);
+		s.setWidth(600);
+		mainWindowStart(event);
+    }
 
-
-	public void initProgram() throws IOException{
+	public void initProgram(Stage s) throws IOException{
+		this.s = s;
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/loading.fxml"));
 		fxmlLoader.setController(this);
 		Parent userView = fxmlLoader.load();
@@ -183,6 +233,7 @@ public class PlayerManagerGUI {
 	void toAddPlayer(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addPlayer-window.fxml"));
 		Parent userView;
+		fxmlLoader.setController(this);
 		try {
 			userView = fxmlLoader.load();
 			mainPane.getChildren().clear();
@@ -196,6 +247,7 @@ public class PlayerManagerGUI {
 	void toDeletePlayers(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deletePlayer-window.fxml"));
 		Parent userView;
+		fxmlLoader.setController(this);
 		try {
 			userView = fxmlLoader.load();
 			mainPane.getChildren().clear();
@@ -214,8 +266,10 @@ public class PlayerManagerGUI {
 			manager.importData(f.getAbsolutePath());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
+			System.out.println("e1");
 			e1.printStackTrace();
-		}
+			
+		} 
 
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Import players");
@@ -237,17 +291,47 @@ public class PlayerManagerGUI {
 	void toSearchPlayer(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchPlayer-window.fxml"));
 		Parent userView;
+		fxmlLoader.setController(this);
 		try {
 			userView = fxmlLoader.load();
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(userView);
+			ObservableList<String> list = FXCollections.observableArrayList();
+			list.add("Id");
+			list.add("Name");
+			list.add("Age");
+			list.add("Team");
+	        searchComboBox.setItems(list);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	@FXML
 	void addPlayer(ActionEvent event) {
-		manager.addPlayer(Integer.parseInt(playerId.getText()), playerName.getText(), Integer.parseInt(playerAge.getText()), playerTeam.getText(),Double.parseDouble(playerPoints.getText()), Double.parseDouble(playerRebounds.getText()),Double.parseDouble(playerAssists.getText()), Double.parseDouble(playerSteals.getText()),Double.parseDouble(playerBlocks.getText()));
+		if(checkAddFields()) {
+			manager.addPlayer(Integer.parseInt(playerId.getText()), playerName.getText(), Integer.parseInt(playerAge.getText()), playerTeam.getText(),Double.parseDouble(playerPoints.getText()), Double.parseDouble(playerRebounds.getText()),Double.parseDouble(playerAssists.getText()), Double.parseDouble(playerSteals.getText()),Double.parseDouble(playerBlocks.getText()));
+			Alert alertWarnings = new Alert(AlertType.INFORMATION);
+	    	alertWarnings.setTitle("Player added");
+			alertWarnings.setHeaderText("Player added succesfully");
+			alertWarnings.show();
+			mainWindowStart(event);
+		}else {
+			Alert alertWarnings = new Alert(AlertType.WARNING);
+	    	alertWarnings.setTitle("Error");
+			alertWarnings.setHeaderText("Empty fields");
+			alertWarnings.setContentText("Please check the info.");
+			alertWarnings.show();
+		}
+		
+	}
+	
+	private boolean checkAddFields() {
+		if(playerId.getText() == null || playerId.getText().isEmpty() || playerName.getText() == null || playerName.getText().isEmpty() || playerAge.getText() == null || playerAge.getText().isEmpty() || playerTeam.getText() == null || playerTeam.getText().isEmpty() || playerPoints.getText() == null || playerPoints.getText().isEmpty() || playerRebounds.getText() == null || playerRebounds.getText().isEmpty() || playerAssists.getText() == null || playerAssists.getText().isEmpty() || playerSteals.getText() == null || playerSteals.getText().isEmpty() || playerBlocks.getText() == null || playerBlocks.getText().isEmpty()) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 	@FXML
 	void exit(ActionEvent event) {
@@ -258,6 +342,7 @@ public class PlayerManagerGUI {
 	void showDeletedList(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("deletedPlayerList-window.fxml"));
 		Parent userView;
+		fxmlLoader.setController(this);
 		try {
 			userView = fxmlLoader.load();
 			mainPane.getChildren().clear();
@@ -308,36 +393,107 @@ public class PlayerManagerGUI {
 
 	@FXML
 	void searchPlayer(ActionEvent event) {
-		int selection=0;
-		searchComboBox.getItems().removeAll(searchComboBox.getItems());
-		searchComboBox.getItems().addAll("id", "name", "age", "team");
-		if(searchComboBox.getValue().equals("id")) {
-			selection = 1;
-		}else if(searchComboBox.getValue().equals("name")) {
-			selection = 2;
-		}else if(searchComboBox.getValue().equals("age")) {
-			selection = 3;
-		}else if(searchComboBox.getValue().equals("team")) {
-			selection = 4;
-		}
+		if(searchComboBox.getValue() == null) {
+			Alert alertWarnings = new Alert(AlertType.WARNING);
+	    	alertWarnings.setTitle("Error");
+			alertWarnings.setHeaderText("Empty field");
+			alertWarnings.setContentText("Please fill all the info.");
+			alertWarnings.show();
+		}else {
+			int selection=0;
+			if(searchComboBox.getValue().equals("Id")) {
+				selection = 1;
+			}else if(searchComboBox.getValue().equals("Name")) {
+				selection = 2;
+			}else if(searchComboBox.getValue().equals("Age")) {
+				selection = 3;
+			}else if(searchComboBox.getValue().equals("Team")) {
+				selection = 4;
+			}
 
-
-		switch(selection){
-		case 1:
-			manager.searchId(Integer.parseInt(playerToSearch.getText()));
-			break;
-		case 2:
-			manager.searchName(playerToSearch.getText());
-			break;
-		case 3:
-			manager.searchAge(Integer.parseInt(playerToSearch.getText()));
-			break;
-		case 4: 
-			manager.searchTeam(playerToSearch.getText());
-			break;
-		default:
-			break;
+			if(playerToSearch.getText() == null || playerToSearch.getText().isEmpty()) {
+				Alert alertWarnings = new Alert(AlertType.WARNING);
+		    	alertWarnings.setTitle("Error");
+				alertWarnings.setHeaderText("Empty field");
+				alertWarnings.setContentText("Please fill all the info.");
+				alertWarnings.show();
+			}else {
+				double initTime = System.currentTimeMillis();
+				double endTiem = 0;
+				Player found = new Player(0);
+				switch(selection){
+				case 1:
+					found = manager.searchId(Integer.parseInt(playerToSearch.getText()));
+					endTiem = System.currentTimeMillis();
+					break;
+				case 2:
+					found = manager.searchName(playerToSearch.getText());
+					endTiem = System.currentTimeMillis();
+					break;
+				case 3:
+					found = manager.searchAge(Integer.parseInt(playerToSearch.getText()));
+					endTiem = System.currentTimeMillis();
+					break;
+				case 4: 
+					found = manager.searchTeam(playerToSearch.getText());
+					endTiem = System.currentTimeMillis();
+					break;
+				default:
+					break;
+				}
+				double time = endTiem - initTime;
+				if(found == null) {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("info-player.fxml"));
+					Parent userView;
+					fxmlLoader.setController(this);
+					try {
+						userView = fxmlLoader.load();
+						mainPane.getChildren().clear();
+						mainPane.getChildren().add(userView);
+						s.setHeight(330);
+						s.setWidth(855);
+						noFoundLabel.setVisible(true);
+						timeLabel.setText(time+"");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}else {
+					ArrayList<Player> l = new ArrayList<Player>();
+					l.add(found);
+					ObservableList<Player> list = FXCollections.observableList(l);
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("info-player.fxml"));
+					Parent userView;
+					fxmlLoader.setController(this);
+					try {
+						userView = fxmlLoader.load();
+						mainPane.getChildren().clear();
+						mainPane.getChildren().add(userView);
+						playerTable.setVisible(true);
+						s.setHeight(330);
+						s.setWidth(855);
+						InitTable();
+						timeLabel.setText(time+"");
+						playerTable.setItems(list);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
+		
+		
+	}
+	
+	public void InitTable() {
+		idCol.setCellValueFactory(new PropertyValueFactory<Player,Integer>("id"));
+		nameCol.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+		ageCol.setCellValueFactory(new PropertyValueFactory<Player,Integer>("age"));
+		teamCol.setCellValueFactory(new PropertyValueFactory<Player,String>("team"));
+		pointCol.setCellValueFactory(new PropertyValueFactory<Player,Double>("pointsPerMatch"));
+		rebCol.setCellValueFactory(new PropertyValueFactory<Player,Double>("reboundPerMatch"));
+		assCol.setCellValueFactory(new PropertyValueFactory<Player,Double>("assistPerMatch"));
+		stlCol.setCellValueFactory(new PropertyValueFactory<Player,Double>("stealPerMatch"));
+		blockCol.setCellValueFactory(new PropertyValueFactory<Player,Double>("blockPerMatch"));
 	}
 
 	@FXML

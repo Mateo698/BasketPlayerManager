@@ -44,23 +44,23 @@ public class Manager {
 	}
 	
 	public Player quickSearch(int selected, double data) {
-		Node<StatisticData> searched = null;
+		StatisticData searched = null;
 		StatisticData aux = new StatisticData(0,data);
 		switch (selected) {
 		case 1:
-			searched = fastAccess.get(0).search(fastAccess.get(0).getRoot(), aux);
+			searched = fastAccess.get(0).search(aux);
 			break;
 
 		case 2:
-			searched = fastAccess.get(1).search(fastAccess.get(1).getRoot(), aux);
+			searched = fastAccess.get(1).search(aux);
 			break;
 
 		case 3:
-			searched = fastAccess.get(2).search(fastAccess.get(2).getRoot(), aux);
+			searched = fastAccess.get(2).search(aux);
 			break;
 
 		case 4:
-			searched = fastAccess.get(3).search(fastAccess.get(3).getRoot(), aux);
+			searched = fastAccess.get(3).search(aux);
 			break;
 
 		default:
@@ -70,7 +70,7 @@ public class Manager {
 		if(searched == null) {
 			return null;
 		}else {
-			return search(searched.getKey().getIndex());	
+			return search(searched.getIndex());	
 		}
 	}
 	
@@ -217,18 +217,16 @@ public class Manager {
 	}
 	
 	public void editPlayer(Player oldPlayer, Player editedPlayer) {
-		fastAccess.get(0).search(fastAccess.get(0).getRoot(),new StatisticData(oldPlayer.getId(), oldPlayer.getPointsPerMatch())).setKey(new StatisticData(editedPlayer.getId(), editedPlayer.getPointsPerMatch()));
-		fastAccess.get(1).search(fastAccess.get(0).getRoot(),new StatisticData(oldPlayer.getId(), oldPlayer.getReboundPerMatch())).setKey(new StatisticData(editedPlayer.getId(), editedPlayer.getReboundPerMatch()));;
-		fastAccess.get(2).search(fastAccess.get(0).getRoot(),new StatisticData(oldPlayer.getId(), oldPlayer.getAssistPerMatch())).setKey(new StatisticData(editedPlayer.getId(), editedPlayer.getAssistPerMatch()));;
-		fastAccess.get(3).search(fastAccess.get(0).getRoot(),new StatisticData(oldPlayer.getId(), oldPlayer.getStealPerMatch())).setKey(new StatisticData(editedPlayer.getId(), editedPlayer.getStealPerMatch()));;
-		
+		removePlayer(oldPlayer);
+		addPlayer(editedPlayer);
 	}
 	
 	public void importData(String path) throws IOException{
+		ArrayList<Player> list = new ArrayList<Player>();
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		String line = br.readLine();
 		line = br.readLine();
-		while(line != null) {
+		for (; line != null;) {
 			String[] parts = line.split(",");
 			int id = Integer.parseInt(parts[37]);
 			String name = parts[2];
@@ -239,20 +237,20 @@ public class Manager {
 			double assist = Double.parseDouble(parts[13]);
 			double steal = Double.parseDouble(parts[14]);
 			double block = Double.parseDouble(parts[15]);
-			Player p = new Player(id, name, age, team, points, rebound, assist, steal, block);
-			addPlayer(p);
 			line = br.readLine();
-			/**37 id
-			2 name
-			3 age
-			1 team
-			6 pm
-			12 reb
-			13 ass
-			14 steal
-			15 block**/
+			Player p = new Player(id, name, age, team, points, rebound, assist, steal, block);
+			list.add(p);
 		}
+		
 		br.close();
+		addlist(list);
+	}
+	
+	public void addlist(ArrayList<Player> l) {
+		for (int i = 0; i < l.size(); i++) {
+			addPlayer(l.get(i));
+		}
+		
 	}
 	
 	

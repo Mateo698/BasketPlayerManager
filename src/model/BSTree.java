@@ -22,13 +22,14 @@ public class BSTree<T extends Comparable<T>> {
 	}
 
 	public Node<T> insertRec(Node<T> root, T key){
+		System.out.println(key);
 		if (root == null){
 			root = new Node<T>(key);
 			return root;
 		}
 		if (key.compareTo(root.getKey())<0)
 			root.setLeft(insertRec(root.getLeft(), key));
-		else if (key.compareTo(root.getKey())>0)
+		else if (key.compareTo(root.getKey())>=0)
 			root.setRight(insertRec(root.getRight(), key));
 		return root;
 	}

@@ -109,4 +109,9 @@ public class Player implements Comparable<Player>{
 			return 0;
 		}
 	}
+	
+	public String toString() {
+		String t = id + " " + name + " " + age + " " + team + " " + pointsPerMatch + " " + reboundPerMatch + " " + assistPerMatch + " " + stealPerMatch + " "+ blockPerMatch;
+		return t;
+	}
 }

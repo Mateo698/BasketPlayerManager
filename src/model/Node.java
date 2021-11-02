@@ -3,12 +3,26 @@ package model;
 public class Node<T extends Comparable<T>> {
 	
 	private T key;
-	private int height;
+	public int level;
+	private int depth;
 	private Node<T> left,right;
 	
 	public Node(T ob) {
 		setKey(ob);
-		setHeight(1);
+	}
+	
+	public Node(T ob, Node<T> left,Node<T>right) {
+		this.key = ob;
+		this.left = left;
+		this.right = right;
+		if (left == null && right == null)
+			setDepth(1);
+		else if (left == null)
+			setDepth(right.getDepth() + 1);
+		else if (right == null)
+			setDepth(left.getDepth() + 1);
+		else
+			setDepth(Math.max(left.getDepth(), right.getDepth()) + 1);
 	}
 
 	public T getKey() {
@@ -17,14 +31,6 @@ public class Node<T extends Comparable<T>> {
 
 	public void setKey(T key) {
 		this.key = key;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
 	}
 
 	public Node<T> getLeft() {
@@ -41,5 +47,13 @@ public class Node<T extends Comparable<T>> {
 
 	public void setRight(Node<T> right) {
 		this.right = right;
+	}
+
+	public int getDepth() {
+		return depth;
+	}
+
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 }
