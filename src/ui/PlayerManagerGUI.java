@@ -38,12 +38,20 @@ import threads.Percentage;
 
 public class PlayerManagerGUI {
 	private static ArrayList<Player> players;
-	private static final String SAVE_PLAYERS_PATH="data/players.ap2";
+	private static final String SAVE_PLAYERS_PATH="/data/players.ap2";
 	private static Manager manager;
 	private static ArrayList<Player> deletedPlayers;
 	public PlayerManagerGUI() {
 		manager = new Manager();
-		loadData();
+		try {
+			loadData();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	private Stage s;
 	
@@ -188,33 +196,24 @@ public class PlayerManagerGUI {
 
 
 	}
+	
 	@SuppressWarnings("unchecked")
-	public static void loadData(){
+	public static void loadData() throws IOException, ClassNotFoundException{
 		File playerList = new File(SAVE_PLAYERS_PATH);
 		if (playerList.exists()) {
-			try {
-				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(playerList));
-				players = (ArrayList<Player>)ois.readObject();
-				ois.close();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				players = new ArrayList<Player>();
-			}
-		}else {
-			players = new ArrayList<Player>();
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(playerList));
+			players = (ArrayList<Player>)ois.readObject();
+			ois.close();
 		}
 	}
-	public static void saveData(){
-		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PLAYERS_PATH));
-			oos.writeObject(players);
-			oos.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	
+	public static void saveData() throws IOException, ClassNotFoundException{
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PLAYERS_PATH));
+		oos.writeObject(players);
+		oos.close();
+		loadData();
 	}
+	
 	@FXML
 	public void mainWindowStart(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-window.fxml"));
@@ -283,7 +282,11 @@ public class PlayerManagerGUI {
 				alert.setTitle("Import players");
 				alert.setHeaderText("Players have been loaded successfully");
 				alert.showAndWait();
+				saveData();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -319,6 +322,15 @@ public class PlayerManagerGUI {
 			alertWarnings.setHeaderText("Player added succesfully");
 			alertWarnings.show();
 			mainWindowStart(event);
+			try {
+				saveData();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else {
 			Alert alertWarnings = new Alert(AlertType.WARNING);
 	    	alertWarnings.setTitle("Error");
@@ -366,11 +378,10 @@ public class PlayerManagerGUI {
 
 	@FXML
 	void deletePlayer(ActionEvent event) {
-		Player playerTemp=manager.searchId(Integer.parseInt(playerToDelete.getText()));
-		deletedPlayers.add(playerTemp);
-		manager.removePlayer(manager.searchId(Integer.parseInt(playerToDelete.getText())));
-
 		if(manager.searchId(Integer.parseInt(playerToDelete.getText()))!=null) {
+			Player playerTemp=manager.searchId(Integer.parseInt(playerToDelete.getText()));
+			deletedPlayers.add(playerTemp);
+			manager.removePlayer(manager.searchId(Integer.parseInt(playerToDelete.getText())));
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Delete players");
 			alert.setHeaderText("Player "+manager.searchId(Integer.parseInt(playerToDelete.getText()))+" has been deleted successfully");
@@ -382,9 +393,14 @@ public class PlayerManagerGUI {
 				userView = fxmlLoader.load();
 				mainPane.getChildren().clear();
 				mainPane.getChildren().add(userView);
+				saveData();
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
 		}else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Delete players");
